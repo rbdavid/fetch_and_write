@@ -95,6 +95,12 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     args.out_file_directory = Path(args.out_file_directory)
+    try:
+        args.out_file_directory.mkdir(parents=True,exist_ok=False)
+    except FileExistsError:
+        print(f'{str(args.out_file_directory)} already exists.')
+    else:
+        print(f'{str(args.out_file_directory)} was created.')
 
     # read the pdbid list file, gathering lines
     with open(args.pdbid_list_file,'r') as pdbid_file:
